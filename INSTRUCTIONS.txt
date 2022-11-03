@@ -1,0 +1,9 @@
+FYI
+$host = 'localhost';
+$db_name = 'farm';
+$db_user = 'farmuser';
+$db_password = 'farmuser';
+
+
+aise details ka user banana
+farm sql load karna localhost pe

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Rooftop farming control">
+    <meta name="author" content="">
+
+    <title>Control Centre</title>
+
+    <!-- MainCSS -->
+    <link href="assets/css/main.css" rel="stylesheet">
+	
+	<!-- PrimaryCSS -->
+    <link href="assets/css/primary.min.css" rel="stylesheet">
+	
+	<!-- Custom Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="assets/js/jquery-3.3.1.js"></script>
+    <script src="assets/js/mainScript.js"></script>
+    <script src="assets/js/mixedGraph.js"></script>
+    <script src="assets/js/mixedTable.js"></script>
+    
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+    </script>
+    <script type="text/javascript">
+    	function SwitchPump(box)
+    	{
+            var pumpstat,xmlhttp;
+            if(box.checked == true)
+    		    pumpstat = "ON";
+            else
+                pumpstat = "OFF";
+                
+                if (window.XMLHttpRequest) {
+                          xmlhttp = new XMLHttpRequest();
+                       } else {
+                          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                      }
+
+                xmlhttp.open("GET", "pumpstatus.php?stat=" + pumpstat,false); //change pumpcontrol.html with ip of arduino
+                xmlhttp.send();
+                document.getElementById('demo').innerHTML = xmlhttp.responseText;
+        }
+    	
+    </script>
+
+</head>
+
+<body>
+<nav>
+	<div class="nav-head">
+		<a href="#" style="float:left" class="heading">Smart Organic Rooftop Farming</a>
+		<a href="#" style="float:right"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+		<a href="#" style="float:right"><i class="fa fa-code fa-fw"></i> Credits</a>
+	</div>
+	<div class="topnav" id="myTopnav">
+		<a class="active" href="#">Dashboard</a>
+		<a href="#">Graphs</a>
+		<a href="#">Data Tables</a>
+		<a href="#">Data Group</a>
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="shrinkNav()">&#9776;</a>
+	</div>
+</nav>
+
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-blue">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="assets/custom-icon/thermometer.png" alt="thermometer" height="80" width="80">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="current-temperature">24</div>
+									<div class="huge-name">Temperature C</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#mixed-chart-t">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="assets/custom-icon/humidity.png" alt="humidity" height="80" width="80">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="current-humidity">56</div>
+                                    <div class="huge-name">Humidity %</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#mixed-chart-smh">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="assets/custom-icon/cloud.png" alt="cloud" height="80" width="80">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="current-soil-moisture">74</div>
+                                    <div class="huge-name">Soil Moisture %</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#mixed-chart-smh">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <img src="assets/custom-icon/sun.png" alt="sun" height="80" width="80">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="current-ldr">254</div>
+                                    <div class="huge-name">LDR </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#mixed-chart-s">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+			<div class="row">
+                    <div class="col-lg-6" >
+                        <div class="col-lg-3">
+                            <h3>Motor Switch</h3>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="switch">
+                                <input type="checkbox" id="pump" onchange="SwitchPump(this)">
+                                <span class="slider round"></span>
+                                <p id="demo"></p>
+                            </label>
+                        </div>	
+                    </div> 
+            </div>
+			<div class="row">
+                <div class="col-lg-6" >
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Soil Moisture and Humidity
+                        </div>
+                        <!-- /.panel-heading -->
+						<h2 id="selected"></h2>
+                        <div class="panel-body">
+							<div id="mixed-chart-smh"></div>
+                        </div>
+					</div>
+				</div>
+				 <div class="col-lg-6" >
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Temperature
+                        </div>
+                        <!-- /.panel-heading -->
+                        <h2 id="selected"></h2>
+                        <div class="panel-body">
+                            <div id="mixed-chart-t"></div>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-lg-6" style="float:left;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> LDR
+                        </div>
+                        <!-- /.panel-heading -->
+                        <h2 id="selected"></h2>
+                        <div class="panel-body">
+                            <div id="mixed-chart-s"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" style="float:left;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-table fa-fw"></i> Data Table
+                        </div>
+                        <!-- /.panel-heading -->
+						<h2 id="selected"></h2>
+                        <div class="panel-body">
+							<div id="mixed-data-table"></div>
+                        </div>
+					</div>
+				</div>
+				
+			</div>
+            
+        </div>
+	</div>
+
+<script src="assets/js/displayCurrent.js"></script>
+    
+
+</body>
